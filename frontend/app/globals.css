@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --background: 222 47% 6%;
+  --foreground: 220 20% 97%;
+  --panel: 220 38% 10%;
+  --panel-border: 220 28% 18%;
+  --muted: 217 14% 66%;
+
+  --accent-teal: 205 97% 54%;
+  --accent-amber: 36 96% 58%;
+  --accent-red: 356 80% 60%;
+  --accent-violet: 224 65% 42%;
+  --accent-green: 152 76% 45%;
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-panel: hsl(var(--panel));
+  --color-panel-border: hsl(var(--panel-border));
+  --color-muted: hsl(var(--muted));
+  --color-teal: hsl(var(--accent-teal));
+  --color-amber: hsl(var(--accent-amber));
+  --color-red: hsl(var(--accent-red));
+  --color-violet: hsl(var(--accent-violet));
+  --color-green: hsl(var(--accent-green));
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  font-size: 17px;
+}
+
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .card-float {
+    box-shadow:
+      0 1px 0 0 hsl(210 100% 92% / 0.06) inset,
+      0 2px 4px rgba(1, 4, 15, 0.4),
+      0 18px 40px -16px rgba(1, 4, 15, 0.7);
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  }
+
+  .card-float:hover {
+    transform: translateY(-4px);
+    border-color: hsl(var(--accent-teal) / 0.6);
+    box-shadow:
+      0 1px 0 0 hsl(210 100% 92% / 0.1) inset,
+      0 4px 10px rgba(1, 4, 15, 0.45),
+      0 30px 52px -18px hsl(var(--accent-teal) / 0.3);
+  }
+
+  .section-block + .section-block {
+    margin-top: 0.875rem;
+    padding-top: 0.875rem;
+    border-top: 1px solid hsl(var(--panel-border));
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+}
