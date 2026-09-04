@@ -20,7 +20,7 @@ from circuit_break import record_attempt, is_circuit_open
 from retriever import retrieve_similar_failures
 from retriever_score import score_recovery_strategy
 
-NUM_WORKERS = 5
+NUM_WORKERS = 2
 job_queue: asyncio.Queue = asyncio.Queue()
 _agent = build_agent_graph()
 
