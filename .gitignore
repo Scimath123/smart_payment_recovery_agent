@@ -7,11 +7,10 @@ __pycache__/
 backend/.env
 
 # Data / models (large, regenerable via generate.py -> embed.py -> mltool.ipynb)
-data/chroma_db/
-data/failure_corpus.csv
+
 data/.ipynb_checkpoints/
 .ipynb_checkpoints/
-models/
+
 backend/recovery_agent.db
 credit_card_fraud_2026.csv
 
@@ -25,4 +24,4 @@ frontend/next-env.d.ts
 .DS_Store
 Thumbs.db
 
-backend/data/chroma_db/
+
