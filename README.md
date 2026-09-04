@@ -180,9 +180,9 @@ Running locally is the recommended way to see this project working fully and rel
 
 Install these before you start:
 
-| Requirement | Version | Check with |
 
-Python- 3.11.x (3.11.9 recommended — some dependencies have build issues on 3.12+) | `python --version` |
+
+Python- 3.11.x (3.11.9 recommended — some dependencies have build issues on 3.12+)  `python --version` 
 Node.js- 18.x or newer  `node --version` 
 npm- comes with Node.js  `npm --version` 
 Git-any recent version `git --version` 
@@ -332,38 +332,36 @@ Or, for a fuller demonstration of concurrency, click the Simulate Failure Burst 
 
 ### Troubleshooting
 
-| Problem | Fix |
 
-| `pip install` fails on `torch` | Confirm you're on Python 3.11.x, not 3.12+ — some ML library wheels aren't published for newer Python versions yet |
-| Backend won't start, `ModuleNotFoundError` | Make sure your virtual environment is activated (`(venv)` should show in your terminal prompt) before running `pip install -r requirements.txt` |
-| Dashboard shows `○ OFFLINE` / `◌ RECONNECTING` | Confirm the backend terminal shows "Application startup complete" and is still running; the frontend auto-reconnects once it's up |
-| `agent.py` errors mentioning Gemini/API key | Double-check `.env` is in the project root (not `backend/`) and contains a valid `GEMINI_KEY` |
-| Frontend shows blank/errors on `npm run dev` | Confirm Node.js is 18+ (`node --version`) and you ran `npm install` inside `frontend/`, not the project root |
-| Want to reset the demo data | Delete `backend/recovery_agent.db` and restart the backend — it recreates a fresh empty database automatically |
+
+ `pip install` fails on `torch` Confirm you're on Python 3.11.x, not 3.12+ — some ML library wheels aren't published for newer Python versions yet 
+ Backend won't start, `ModuleNotFoundError`  Make sure your virtual environment is activated (`(venv)` should show in your terminal prompt) before running `pip install -r requirements.txt` 
+ Dashboard shows `○ OFFLINE`  `◌ RECONNECTING`  Confirm the backend terminal shows "Application startup complete" and is still running; the frontend auto-reconnects once it's up 
+ `agent.py` errors mentioning Gemini/API key Double-check `.env` is in the project root (not `backend/`) and contains a valid `GEMINI_KEY` 
+ Frontend shows blank/errors on `npm run dev` Confirm Node.js is 18+ (`node --version`) and you ran `npm install` inside `frontend/`, not the project root 
+ Want to reset the demo data Delete `backend/recovery_agent.db` and restart the backend — it recreates a fresh empty database automatically 
 
 ---
 
 ## API Reference
 
-| Endpoint | Method | Description |
+ Endpoint Method  Description 
 
-| `/transaction/fail` | `POST` | Webhook — ingest a failed transaction, dedupes via `idempotency_key`, queues it |
-| `/dashboard/metrics` | `GET` | Aggregate KPIs — total failed, recovered, recovery rate, revenue recovered |
-| `/dashboard/feed` | `GET` | Recent transactions with agent decisions |
-| `/dashboard/circuit-breaker` | `GET` | Per-category circuit breaker status |
-| `/ws/feed` | `WebSocket` | Live event stream — every pipeline stage broadcast as it happens |
+`/transaction/fail`  `POST`  Webhook — ingest a failed transaction, dedupes via `idempotency_key`, queues it 
+ `/dashboard/metrics`  `GET`  Aggregate KPIs — total failed, recovered, recovery rate, revenue recovered 
+ `/dashboard/feed`  `GET`  Recent transactions with agent decisions 
+ `/dashboard/circuit-breaker`  `GET` Per-category circuit breaker status 
+ `/ws/feed` `WebSocket`  Live event stream — every pipeline stage broadcast as it happens 
 
 ## WebSocket Events
 
-| Event | Meaning |
-|---|---|
-| `QUEUED` | Transaction entered the processing queue |
-| `WORKER_ASSIGNED` | A worker picked it up |
-| `RAG_STARTED` / `RAG_COMPLETED` | Historical similarity lookup in progress / finished |
-| `ML_SCORING` / `ML_SCORED` | Strategy scoring in progress / finished |
-| `RETRY_SCHEDULED` | Final decision made, includes full reasoning and confidence |
-| `RECOVERED` / `FAILED_AGAIN` / `ESCALATED` | Terminal or retry-loop outcome |
-| `CIRCUIT_OPEN` | A failure category has been paused due to sustained low recovery rate |
+
+ `QUEUED`  Transaction entered the processing queue 
+ `WORKER_ASSIGNED`  A worker picked it up 
+ `RAG_STARTED`  `RAG_COMPLETED` Historical similarity lookup in progress  finished  `ML_SCORING`  `ML_SCORED`  Strategy scoring in progress  finished 
+ `RETRY_SCHEDULED`  Final decision made, includes full reasoning and confidence 
+ `RECOVERED`  `FAILED_AGAIN`  `ESCALATED`  Terminal or retry-loop outcome 
+ `CIRCUIT_OPEN`  A failure category has been paused due to sustained low recovery rate 
 
 ## Known Limitations
 
@@ -371,7 +369,7 @@ Or, for a fuller demonstration of concurrency, click the Simulate Failure Burst 
 - The hosted backend runs on Render's free tier (512MB RAM), which is genuinely tight for the combined footprint of `torch`, `sentence-transformers`, `chromadb`, and `lightgbm` loaded together. Under real request load, the free-tier instance can be slow to respond or restart mid-pipeline. This is a hosting-resource constraint, not a defect in the application logic — it runs reliably locally, or on any tier with more available memory (e.g. Render's Starter plan). **Demo Mode** in the dashboard exists as a no-backend-required fallback for this exact reason.
 - Revenue at Risk on the dashboard is a client-side session estimate (sums transactions this browser has observed), not a full database aggregate — no backend endpoint currently computes that total.
 - Worker identity isn't tracked — the dashboard shows how many of the 5 workers are busy, but not which specific worker handled which transaction, since the backend doesn't broadcast that detail.
-- RAG/ML panels show a single top-result summary, not the full ranked list — the live broadcast currently sends only the top similarity/strategy, though the full data exists server-side and could be exposed with a small backend change.
+- RAG/ML panels show a single top-result summary, not the full ranked list  the live broadcast currently sends only the top similarity/strategy, though the full data exists server-side and could be exposed with a small backend change.
 - System Health metrics like LLM calls/min or cache hit rate aren't tracked yet — shown as explicitly empty rather than fabricated.
 - The retry-success outcome is simulated (weighted random based on the model's confidence score) rather than executing a real retry against a payment gateway, since this is a demo/hackathon build without a live gateway integration.
 
