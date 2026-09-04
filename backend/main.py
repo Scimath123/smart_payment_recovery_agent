@@ -23,7 +23,7 @@ import worker as worker_module
 app = FastAPI(title="Smart Retry & Recovery Agent")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000","https://smart-payment-recovery-agent.vercel.app"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
