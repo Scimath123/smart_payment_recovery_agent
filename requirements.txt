@@ -26,4 +26,4 @@ python-dotenv==1.0.1
 websockets==14.1
 
 tqdm==4.67.1
-requests==2.32.3
+requests==2.32.3google-generativeai==0.8.6
