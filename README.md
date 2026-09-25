@@ -2,7 +2,7 @@
 
 An AI-powered payment failure recovery system that combines RAG, machine learning, and LLM reasoning to automatically recover failed payments with a real-time observability dashboard to watch it work.
 
-Built for the Razorpay Hackathon 2026.
+
 
 
 Live demo: [smart-payment-recovery-agent.vercel.app](https://smart-payment-recovery-agent.vercel.app) · **Backend API:** [smart-payment-recovery-agent.onrender.com](https://smart-payment-recovery-agent.onrender.com)
